@@ -1,7 +1,18 @@
 {
-  "name": "vite-react-typescript-starter",
+  "name": "mixtape-memory",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Turn handwritten cassette tracklists into reviewed Spotify playlists.",
+  "author": "Steven Meade",
+  "license": "MIT",
+  "homepage": "https://neonowl.ai/mixtapes/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/backedbydata/mixtapes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/backedbydata/mixtapes/issues"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",

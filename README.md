@@ -1,84 +1,111 @@
 # Mixtape Memory
 
-Transform your physical mixtapes into digital Spotify playlists using OCR technology and intelligent song matching.
+![Mixtape Memory project card showing a cassette, a couple holding hands, and a Spotify playlist](docs/images/mixtape-memory-card.webp)
 
-## Overview
+Before playlists, we made mixtapes one song at a time.
 
-Mixtape Memory is a web application that allows users to photograph handwritten mixtape labels, extract song information using optical character recognition (OCR), match songs to streaming services, and create playlists automatically.
+Mixtape Memory turns a photo of a handwritten cassette insert into a reviewed Spotify playlist while keeping the original image, extracted text, song matches, and finished playlist connected.
+
+[View the project overview](https://neonowl.ai/mixtapes/) · [Read the technical documentation](docs/README.md)
+
+> **Project status:** This is a portfolio and learning project. The source code is public, but the application itself is not currently hosted. The link above opens the project overview.
+
+## The story behind it
+
+My wife and I were high-school sweethearts. While we were dating, I made her mixtapes to share feelings I did not always know how to put into words. We married after college, built an amazing family, and she kept those tapes through all the years that followed.
+
+In early 2026, she showed them to me again. The handwriting was fading, cassette decks were disappearing, and the music had moved to streaming. That moment became an invitation to preserve something personal while learning OCR, Supabase, and the Spotify API.
+
+## What it does
+
+1. Captures or uploads a photo of the original cassette insert.
+2. Uses Google Cloud Vision to extract the handwritten tracklist.
+3. Separates columns and proposes song titles and artists.
+4. Lets the user review and correct the OCR results.
+5. Searches Spotify and ranks possible matches.
+6. Creates the playlist in the original track order.
+7. Saves the source image, reviewed songs, matches, and playlist history.
+
+## The source and the result
+
+<p align="center">
+  <img src="docs/images/red-tracklist.webp" width="760" alt="Original cassette insert with a handwritten red-ink tracklist">
+</p>
+
+<p align="center">
+  <img src="docs/images/create-playlist.png" width="520" alt="Create Playlist screen with reviewed Spotify matches and playlist details">
+</p>
 
 ## Features
 
-- **Image Capture**: Take photos of mixtape labels directly from your device camera or upload existing images
-- **OCR Processing**: Advanced text extraction that handles handwritten text, multiple columns, and various cassette label formats
-- **Intelligent Song Matching**: Fuzzy matching algorithm that finds songs on Spotify even with OCR errors or abbreviated artist names
-- **Playlist Creation**: One-click playlist creation on Spotify
-- **History Tracking**: View and manage all your digitized mixtapes
-- **Demo Mode**: Try the app without connecting to Spotify
+- Camera capture and image upload
+- Handwriting OCR with two-column tracklist support
+- Review and correction before matching
+- Fuzzy Spotify matching with visible alternatives
+- Spotify authorization using OAuth with PKCE
+- Playlist creation in the original song order
+- Saved mixtape, song, image, and playlist history
+- Row-level security for user-owned records
 
-## Tech Stack
+## Technology
 
-| Category | Technology |
-|----------|------------|
-| Frontend | React 18, TypeScript |
-| Routing | React Router v7 |
+| Area | Technology |
+|---|---|
+| Frontend | React, TypeScript, React Router |
 | Styling | Tailwind CSS |
-| Icons | Lucide React |
-| Backend | Supabase (PostgreSQL) |
+| Backend | Supabase, PostgreSQL, Edge Functions |
 | Authentication | Supabase Auth |
 | Storage | Supabase Storage |
 | OCR | Google Cloud Vision API |
-| Music API | Spotify Web API |
-| Build Tool | Vite |
+| Music | Spotify Web API |
+| Build tooling | Vite |
 
-## Quick Start
+## Quick start
 
-1. Clone the repository
+1. Clone the repository.
 2. Install dependencies:
+
    ```bash
    npm install
    ```
-3. Set up environment variables:
+
+3. Copy the environment template:
+
    ```bash
    cp .env.example .env
    ```
-   Then edit `.env` with your API keys (see [Configuration Guide](./CONFIGURATION.md) for details)
-4. Start development server:
+
+4. Follow the [configuration guide](docs/CONFIGURATION.md) to configure Supabase, Spotify, and Google Cloud Vision.
+5. Start the development server:
+
    ```bash
    npm run dev
    ```
 
 ## Documentation
 
-- [Configuration Guide](./CONFIGURATION.md) - Environment setup and API keys
-- [Architecture Overview](./ARCHITECTURE.md) - System design and components
-- [Database Schema](./DATABASE.md) - Tables, relationships, and security
-- [API Reference](./API.md) - Services and edge functions
-- [OCR Parser](./OCR_PARSER.md) - Text parsing algorithms
+- [Documentation index](docs/README.md)
+- [Architecture overview](docs/ARCHITECTURE.md)
+- [Configuration guide](docs/CONFIGURATION.md)
+- [Database schema](docs/DATABASE.md)
+- [API reference](docs/API.md)
+- [OCR parser specification](docs/OCR_PARSER.md)
 
-## Project Structure
+## Project structure
 
-```
+```text
+docs/                 Technical documentation and public images
 src/
-├── components/
-│   ├── layout/          # Header, Layout wrapper
-│   ├── scan/            # Wizard step components
-│   └── ui/              # Reusable UI components
-├── contexts/
-│   └── AuthContext.tsx  # Authentication state
-├── lib/
-│   └── supabase.ts      # Supabase client
-├── pages/               # Route pages
-└── services/            # Business logic
-    ├── ocr.ts           # Image processing
-    ├── songMatcher.ts   # Spotify matching
-    ├── spotify.ts       # Spotify API
-    └── textParser.ts    # OCR text parsing
-
+├── components/       Layout, scan workflow, and reusable UI
+├── contexts/         Authentication state
+├── lib/              Shared clients
+├── pages/            Application routes
+└── services/         OCR, parsing, matching, and Spotify services
 supabase/
-├── functions/           # Edge functions
-└── migrations/          # Database schema
+├── functions/        Server-side OCR function
+└── migrations/       Database schema
 ```
 
 ## License
 
-MIT
+This project is licensed under the [MIT License](LICENSE).
